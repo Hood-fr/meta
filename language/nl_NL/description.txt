@@ -1,0 +1,1 @@
+Maakt het mogelijk om metadata toe te voegen. Handig om uw zichtbaarheid voor zoekmachines te verbeteren.
