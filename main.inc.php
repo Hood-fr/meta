@@ -71,6 +71,7 @@ function Change_Meta(){
 
 function upmata($content, &$smarty){
   $search = '#<meta name="description" content=".*?">#';
+  $replacement = '<meta name="description" content="totos">';
   $replacement = '<meta name="description" content="{$PLUG_META}">';
   return preg_replace($search, $replacement, $content);
 }
