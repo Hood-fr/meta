@@ -84,7 +84,7 @@ switch ($page['tab']) {
 	  'meta' => l10n('meta_name'),
 	));
     $admin_base_url = META_ADMIN . '-persometa';
-    $metapersos = pwg_query("SELECT * FROM `" . METAPERSO_TABLE . ";");
+    $metapersos = pwg_query("SELECT * FROM `" . METAPERSO_TABLE . "`;");
     if (pwg_db_num_rows($metapersos)) {
 	  while ($metaperso = pwg_db_fetch_assoc($metapersos)){
 		$items = array(
