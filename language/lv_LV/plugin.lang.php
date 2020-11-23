@@ -52,4 +52,4 @@ $lang['Choose Additional Pages'] = 'Izvēlēties Papildus Lapas ';
 $lang['Additional Pages Metadata'] = 'Papildus Lapu Metadati';
 $lang['Add metadata for page'] = 'Pievienot lapas metadatus';
 $lang['Metadata updated'] = 'Natadati atjaunināti';
-?>
+$lang['Choose it page'] = 'Izvēlieties šo lapu';

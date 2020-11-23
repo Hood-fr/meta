@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | meta plugin for Piwigo                                                |
+// | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -64,9 +64,8 @@ function metaPadminfT($content, &$smarty) {
 
 function metaPadminA() {
   if (isset($_GET['image_id'])){
-	global $template, $prefixeTable;
-	$PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-	if($PAED['state'] == 'active'){
+	global $template, $prefixeTable, $pwg_loaded_plugins;
+	if (isset($pwg_loaded_plugins['ExtendedDescription'])){
 	  $template->assign('useED',1);
     }else{
       $template->assign('useED',0);
@@ -124,13 +123,12 @@ function metaAadminfT($content, &$smarty){
 
 function metaAadminA(){
   if (isset($_GET['cat_id'])) {
-	global $template, $prefixeTable;
-	$PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-	if($PAED['state'] == 'active'){
+	global $template, $prefixeTable, $pwg_loaded_plugins;
+	if (isset($pwg_loaded_plugins['ExtendedDescription'])){
 	  $template->assign('useED',1);
-    }else{
-      $template->assign('useED',0);
-    }
+	}else{
+	  $template->assign('useED',0);
+	}
 	$query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = ' . $_GET['cat_id'] . ';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);

@@ -61,4 +61,4 @@ $lang['Choose Additional Pages'] = 'Välj extra sidor';
 $lang['Contact page Metadata'] = 'Metadata för kontakt sidan';
 $lang['Description of Additional Pages to be completed'] = '"beskrivning" meta ';
 $lang['Metadata updated'] = 'Metadata uppdaterad';
-?>
+$lang['Choose it page'] = 'Välj sida';

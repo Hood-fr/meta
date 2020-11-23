@@ -1,8 +1,27 @@
 <?php
+// +-----------------------------------------------------------------------+
+// | meta plugin for Piwigo by TEMMII                                      |
+// +-----------------------------------------------------------------------+
+// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
     die('Hacking attempt!');
-global $template, $conf, $user;
+global $template, $conf, $user, $pwg_loaded_plugins;
 include_once(PHPWG_ROOT_PATH . 'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
@@ -19,14 +38,12 @@ else
 $tabsheet = new tabsheet();
   $tabsheet->add('gestion', l10n('meta_onglet_gestion'), META_ADMIN . '-gestion');
   $tabsheet->add('persometa', l10n('Personal Metadata'), META_ADMIN . '-persometa');
-  $MPC = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ContactForm';"));
-	if ($MPC['state'] == 'active') {
-      $tabsheet->add('contactmeta', l10n('Contact page Metadata'), META_ADMIN . '-contactmeta');
-	}
-  $MAP = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'AdditionalPages';"));
-	if ($MAP['state'] == 'active') {
-      $tabsheet->add('AdditionalPagesmeta', l10n('Additional Pages Metadata'), META_ADMIN . '-AdditionalPagesmeta');
-	}
+  if (isset($pwg_loaded_plugins['ContactForm'])){
+	$tabsheet->add('contactmeta', l10n('Contact page Metadata'), META_ADMIN . '-contactmeta');
+  }
+  if (isset($pwg_loaded_plugins['AdditionalPages'])){
+	$tabsheet->add('AdditionalPagesmeta', l10n('Additional Pages Metadata'), META_ADMIN . '-AdditionalPagesmeta');
+  }
   $tabsheet->add('description', l10n('meta_onglet_description'), META_ADMIN . '-description');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
@@ -84,7 +101,7 @@ switch ($page['tab']) {
 	  'meta' => l10n('meta_name'),
 	));
     $admin_base_url = META_ADMIN . '-persometa';
-    $metapersos = pwg_query("SELECT * FROM `" . METAPERSO_TABLE . ";");
+    $metapersos = pwg_query("SELECT * FROM " . METAPERSO_TABLE . ";");
     if (pwg_db_num_rows($metapersos)) {
 	  while ($metaperso = pwg_db_fetch_assoc($metapersos)){
 		$items = array(

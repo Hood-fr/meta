@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | meta plugin for Piwigo                                                |
+// | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -18,6 +18,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Manage tag Metadata'] = 'Manage meta tags';
 
 //tab gest

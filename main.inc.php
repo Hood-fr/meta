@@ -9,9 +9,9 @@ Author URI: http://temmii.com/piwigo/
 */
 
 // +-----------------------------------------------------------------------+
-// | meta plugin for Piwigo                                                |
+// | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -62,11 +62,11 @@ add_event_handler('loc_end_page_header', 'add_metaimg', 71);
 add_event_handler('loc_after_page_header', 'set_meta_back');
 
 function Change_Meta(){
-  global $template;
+  global $template, $pwg_loaded_plugins;
   $template->set_prefilter('header', 'upmata');
-  $PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-  if ($PAED['state'] == 'active')
+  if (isset($pwg_loaded_plugins['ExtendedDescription'])){
     add_event_handler('AP_render_content', 'get_user_language_desc');
+  }
 }
 
 function upmata($content, &$smarty){
@@ -76,7 +76,7 @@ function upmata($content, &$smarty){
 }
 
 function add_meta(){
-  global $template, $page, $meta_infos;
+  global $template, $page, $meta_infos, $pwg_loaded_plugins;
   $meta_infos = array();
   $meta_infos['author'] = $template->get_template_vars('INFO_AUTHOR');
   $meta_infos['related_tags'] = $template->get_template_vars('related_tags');
@@ -136,8 +136,7 @@ function add_meta(){
     $template->append('head_elements', $template->parse('PERSO_META', true));
   }
 
-  $MPC = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ContactForm';"));
-  if ($MPC['state'] == 'active'){
+  if (isset($pwg_loaded_plugins['ContactForm'])){
     global $conf;
     if (isset($page['section']) and $page['section'] == 'contact' and isset($conf['contactmeta']) and strpos($conf['contactmeta'], ',') !== false){
       $metacontact = explode(',', $conf['contactmeta']);
@@ -152,8 +151,7 @@ function add_meta(){
     }
   }
 
-  $MAP = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'AdditionalPages';"));
-  if ($MAP['state'] == 'active') {
+  if (isset($pwg_loaded_plugins['AdditionalPages'])){
     if (!empty($page['additional_page']['id'])) {
       $lire = $page['additional_page']['id'];
       $query = 'SELECT id, metaKeyap, metadesap FROM ' . META_AP_TABLE . ' WHERE id = \'' . $lire . '\';';

@@ -63,10 +63,10 @@ $lang['Personal metadata update'] = 'Opdatering af personlige metadata';
 $lang['Add metadata for page'] = 'Tilføj metadata til side';
 $lang['Additional Pages Metadata'] = 'Metadata til Additional Pages';
 $lang['Choose Additional Pages'] = 'Vælg Additional Pages';
-$lang['Contact page Metadata'] = 'Metadat til kontaktside';
+$lang['Contact page Metadata'] = 'Metadata til kontaktside';
 $lang['Description of Additional Pages to be completed'] = 'Beskrivelse af Additional Pages, der skal udfyldes';
 $lang['Description of contact page to be completed'] = 'Beskrivelse af kontaktside, der skal udfyldes';
 $lang['Keywords of Additional Pages to be completed'] = 'Nøgleord til Additional Pages, der skal udfyldes';
 $lang['Keywords of contact page to be completed'] = 'Nøgleord til kontaktside, der skal udfyldes';
 $lang['Metadata updated'] = 'Metadata opdateret';
-?>
+$lang['Choose it page'] = 'Vælg side';

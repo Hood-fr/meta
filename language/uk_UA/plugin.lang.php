@@ -69,4 +69,4 @@ $lang['Keywords of contact page to be completed'] = 'Ключові слова �
 $lang['Add metadata for page'] = 'Додавати метадані для сторінки';
 $lang['Contact page Metadata'] = 'Метадані контактної сторінки';
 $lang['Metadata updated'] = 'Метадані оновлено';
-?>
+$lang['Choose it page'] = 'Виберіть його сторінку';
