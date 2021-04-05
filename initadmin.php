@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -23,6 +23,7 @@ if (!defined('PHPWG_ROOT_PATH'))
     die('Hacking attempt!');
 
 //Add link menu
+/*
 add_event_handler('get_admin_plugin_menu_links', 'meta_admin_menu');
 
 function meta_admin_menu($menu) {
@@ -31,7 +32,7 @@ function meta_admin_menu($menu) {
     'URL' => META_ADMIN,
   );
   return $menu;
-}
+}*/
 
 //add prefiltre photo
 add_event_handler('loc_begin_admin', 'metaPadminf', 55);
@@ -43,7 +44,7 @@ function metaPadminf() {
 }
 
 function metaPadminfT($content, &$smarty) {
-  $search = '#<p style="margin:40px 0 0 0">#';
+  $search = '#<input type="hidden" name="pwg_token"#';
   $replacement = '
 	<p>
       <strong>{\'Metadata - Plugin meta\'|@translate}</strong>
@@ -57,7 +58,7 @@ function metaPadminfT($content, &$smarty) {
 	  <span style="margin: 0 0 0 20px"><textarea rows="2" cols="60" {if $useED==1}placeholder="{\'Use Extended Description tags...\'|@translate}"{/if} name="insermetaDP" id="insermetaDP" class="insermetaDP">{$metaCONTENT2}</textarea>
 	  ({\'meta_compcatdeshelp\'|@translate})</span>
 	</p>  
-<p style="margin:40px 0 0 0">';
+<input type="hidden" name="pwg_token"';
 
   return preg_replace($search, $replacement, $content);
 }
@@ -73,6 +74,8 @@ function metaPadminA() {
 	$query = 'SELECT id,metaKeyimg,metadesimg FROM ' . meta_img_TABLE . ' WHERE id = ' . $_GET['image_id'] . ';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
+	if(!isset($row['metaKeyimg'])){$row['metaKeyimg']="";};
+	if(!isset($row['metadesimg'])){$row['metadesimg']="";};
 	$template->assign(
 	array(
 	  'metaCONTENT' => $row['metaKeyimg'],
@@ -132,6 +135,8 @@ function metaAadminA(){
 	$query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = ' . $_GET['cat_id'] . ';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
+	if(!isset($row['metaKeycat'])){$row['metaKeycat']="";};
+	if(!isset($row['metadescat'])){$row['metadescat']="";};
 	$template->assign(
 	  array(
 		'metaCONTENTA' => $row['metaKeycat'],
