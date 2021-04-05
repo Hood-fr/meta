@@ -6,12 +6,13 @@ Description: Allows to add metadata
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=220
 Author: ddtddt
 Author URI: http://temmii.com/piwigo/
+Has Settings: webmaster
 */
 
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2020 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -179,12 +180,12 @@ function add_metacat() {
     $query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = \'' . $page['category']['id'] . '\';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
-	$albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
 	if (!empty($row['metaKeycat'])) {
+	$albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
 	  $template->append('related_tags', array('name' => $albumKeyED));
 	}
-	$albumDesED = trigger_change('AP_render_content', $row['metadescat']);
 	if (!empty($row['metadescat'])) {
+	$albumDesED = trigger_change('AP_render_content', $row['metadescat']);
 	  $template->assign('PLUG_META', $albumDesED);
 	}
   }
