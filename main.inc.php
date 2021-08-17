@@ -64,17 +64,17 @@ add_event_handler('loc_after_page_header', 'set_meta_back');
 
 function Change_Meta(){
   global $template, $pwg_loaded_plugins;
-  $template->set_prefilter('header', 'upmata');
+//  $template->set_prefilter('header', 'upmata');
   if (isset($pwg_loaded_plugins['ExtendedDescription'])){
     add_event_handler('AP_render_content', 'get_user_language_desc');
   }
 }
 
-function upmata($content, &$smarty){
-  $search = '#<meta name="description" content=".*?">#';
-  $replacement = '<meta name="description" content="{$PLUG_META}">';
-  return preg_replace($search, $replacement, $content);
-}
+//function upmata($content, &$smarty){
+//  $search = '#<meta name="description" content=".*?">#';
+//  $replacement = '<meta name="description" content="{$PLUG_META}">';
+//  return preg_replace($search, $replacement, $content);
+//}
 
 function add_meta(){
   global $template, $page, $meta_infos, $pwg_loaded_plugins;
@@ -83,6 +83,7 @@ function add_meta(){
   $meta_infos['related_tags'] = $template->get_template_vars('related_tags');
   $meta_infos['info'] = $template->get_template_vars('INFO_FILE');
   $meta_infos['title'] = $template->get_template_vars('PAGE_TITLE');
+//  echo '<pre>'; print_r($meta_infos); echo '</pre>';
 
   $query = 'SELECT id,metaname,metaval FROM ' . meta_TABLE . ' WHERE metaname IN (\'author\', \'keywords\', \'Description\', \'robots\');';
   $result = pwg_query($query);
@@ -208,11 +209,12 @@ function add_metaimg(){
 	  $meta_infosph = array();
 	  $meta_infosph['title'] = $template->get_template_vars('PAGE_TITLE');
 	  $meta_infosph['gt'] = $template->get_template_vars('GALLERY_TITLE');
-	  $meta_infosph['descimg'] = $template->get_template_vars('COMMENT_IMG');
+	  $meta_infosph['st'] = $template->get_template_vars('SECTION_TITLE');
+          $meta_infosph['descimg'] = $template->get_template_vars('COMMENT_IMG');
 	  if (!empty($meta_infosph['descimg'])) {
-		$template->assign('PLUG_META', strip_tags($meta_infosph['descimg']) . ' - ' . $meta_infosph['title']);
+		$template->assign('PLUG_META', $meta_infosph['st'] .  ' - ' . strip_tags($meta_infosph['descimg']) . ' - ' . $meta_infosph['title']);
 	  }else{
-		$template->assign('PLUG_META', $meta_infosph['title'] . ' - ' . $meta_infosph['gt']);
+		$template->assign('PLUG_META', $meta_infosph['st'] .  ' - ' . $meta_infosph['title']);
 	  }
 	}
   }
