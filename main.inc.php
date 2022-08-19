@@ -182,11 +182,11 @@ function add_metacat() {
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
 	if (!empty($row['metaKeycat'])) {
-	$albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
+	  $albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
 	  $template->append('related_tags', array('name' => $albumKeyED));
 	}
 	if (!empty($row['metadescat'])) {
-	$albumDesED = trigger_change('AP_render_content', $row['metadescat']);
+	  $albumDesED = trigger_change('AP_render_content', $row['metadescat']);
 	  $template->assign('PLUG_META', $albumDesED);
 	}
   }
@@ -198,12 +198,12 @@ function add_metaimg(){
     $query = 'SELECT id,metaKeyimg,metadesimg FROM ' . meta_img_TABLE . ' WHERE id = \'' . $page['image_id'] . '\';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
-	$photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
 	if (!empty($row['metaKeyimg'])) {
+	  photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
 	  $template->append('related_tags', array('name' => $photoKeyED));
 	}
-	$photoDesED = trigger_change('AP_render_content', $row['metadesimg']);
 	if (!empty($row['metadesimg'])) {
+	  $photoDesED = trigger_change('AP_render_content', $row['metadesimg']);
 	  $template->assign('PLUG_META', $photoDesED);
 	}else{
 	  $meta_infosph = array();
