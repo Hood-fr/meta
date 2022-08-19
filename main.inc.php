@@ -199,7 +199,7 @@ function add_metaimg(){
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
 	if (!empty($row['metaKeyimg'])) {
-	  photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
+	  $photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
 	  $template->append('related_tags', array('name' => $photoKeyED));
 	}
 	if (!empty($row['metadesimg'])) {
