@@ -43,7 +43,7 @@ function metaPadminf() {
   $template->set_prefilter('picture_modify', 'metaPadminfT');
 }
 
-function metaPadminfT($content, &$smarty) {
+function metaPadminfT($content){
   $search = '#<input type="hidden" name="pwg_token"#';
   $replacement = '
 	<p>
@@ -104,7 +104,7 @@ function metaAadminf() {
   $template->set_prefilter('album_properties', 'metaAadminfT');
 }
 
-function metaAadminfT($content, &$smarty){
+function metaAadminfT($content){
   $search = '#<p style="margin:0">#';
   $replacement = '
 	<p>
