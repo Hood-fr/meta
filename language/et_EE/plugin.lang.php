@@ -61,4 +61,5 @@ $lang['Additional Pages Metadata'] = 'Lisalehtede metainformatsioon';
 $lang['Choose Additional Pages'] = 'Vali lisalehed';
 $lang['Contact page Metadata'] = 'Kontaktlehe metainformatsioon';
 $lang['Description of Additional Pages to be completed'] = 'puudub lisalehe kirjeldus';
-?>
+$lang['Meta'] = 'Meta';
+$lang['Choose it page'] = 'Valige see leht';

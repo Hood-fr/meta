@@ -58,3 +58,4 @@ $lang['Keywords of Additional Pages to be completed'] = 'Palabras clave de las p
 $lang['Keywords of contact page to be completed'] = 'Palabras clave de la página de contacto que queda por completar';
 $lang['Metadata updated'] = 'Metadatos actualizados';
 $lang['Choose it page'] = 'Elige la página';
+$lang['Meta'] = 'Meta';

@@ -56,4 +56,5 @@ $lang['Personal metadata update'] = 'Uživatelská metadata aktualizována';
 $lang['Contact page Metadata'] = 'Metadata kontaktní stránky';
 $lang['Choose Additional Pages'] = 'Zvol dodatečné stránky';
 $lang['Additional Pages Metadata'] = 'Metadata dodatečných stránek';
-?>
+$lang['Choose it page'] = 'Zvol stranu';
+$lang['Meta'] = 'Meta';

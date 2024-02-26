@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2023 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -35,6 +35,7 @@ $lang['meta_comp'] = 'Métadonnée à compléter';
 $lang['meta_insmeta'] = 'insérer la métadonnée';
 
 //edit
+$lang['Meta'] = 'Meta';
 $lang['Metadata - Plugin meta'] = 'Métadonnée - Plugin meta';
 $lang['meta_compimg'] = 'Mots clés de la photo à compléter';
 $lang['meta_compimgdes'] = 'Description de la photo à substituer';

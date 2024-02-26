@@ -38,7 +38,7 @@ jQuery(document).ready(function(){
 		<br>	
 		<br>
 		<div style="text-align:center;">
-		  <input class="submit" name="submitinsmeta" type="submit" value="{'meta_insmeta'|@translate}" {$TAG_INPUT_ENABLED} />
+		  <input class="submit" name="submitinsmeta" type="submit" value="{'meta_insmeta'|@translate}"/>
 		</div>
 	  </fieldset>
 	</form>
@@ -67,13 +67,14 @@ jQuery(document).ready(function(){
 {if isset ($metapersoT)}
   <form method="post" >
 	<fieldset>
-	  <input class="submit" name="submitaddpersonalmeta" type="submit" value="{'Add Personal metadata'|@translate}" {$TAG_INPUT_ENABLED} />
+	  <input class="submit" name="submitaddpersonalmeta" type="submit" value="{'Add Personal metadata'|@translate}"/>
 	</fieldset>
   </form>
   <form method="post" >
 	<fieldset>
 	  <legend>{'List Personal Metadata'|@translate}</legend>
 	  <ul class="categoryUl">
+	   {if isset ($metapersos)}
 		{foreach from=$metapersos item=metaperso}
 		  <li class="categoryLi virtual_cat">
 			< meta {$metaperso.METATYPE}="{$metaperso.METANAME}" content="{$metaperso.METAVAL}">
@@ -82,6 +83,7 @@ jQuery(document).ready(function(){
 			<br>
 		  </li>
 		{/foreach}
+	   {/if}
 	  </ul>
 	</fieldset>
   </form>
@@ -94,7 +96,7 @@ jQuery(document).ready(function(){
 		<br>	
 		<br>
 			<div style="text-align:center;">
-			<input class="submit" name="submitaddmetaperso" type="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
+			<input class="submit" name="submitaddmetaperso" type="submit" value="{'Submit'|@translate}"/>
 			</div>
 	  </fieldset>
 	</form>
@@ -155,4 +157,26 @@ jQuery(document).ready(function(){
 	  </form>
 	</div>
   {/if}
+{/if}
+{if isset ($metagestalbum)}
+<div>
+    <form method="post" >
+	<fieldset>
+	<legend><span class="icon-file-code icon-purple"></span>{'meta_onglet_gestion'|@translate}</legend>
+	<p>
+	  <span style="margin: 0 0 0 20px">{'meta_compcat'|@translate}</span>
+	  <br>
+      <span style="margin: 0 0 0 20px"><textarea rows="2" cols="60" {if $useED==1}placeholder="{'Use Extended Description tags...'|@translate}"{/if} name="insermetaKA" id="insermetaKA" class="insermetaKA">{$metaCONTENTA}</textarea></span>
+	  <br>
+	  <span style="margin: 0 0 0 20px">{'meta_compcatdes'|@translate}</span>
+	  <br>
+	  <span style="margin: 0 0 0 20px"><textarea rows="2" cols="60" {if $useED==1}placeholder="{'Use Extended Description tags...'|@translate}"{/if} name="insermetaDA" id="insermetaDA" class="insermetaDA">{$metaCONTENTA2}</textarea>
+	  ({'meta_compcatdeshelp'|@translate})</span>
+	</p>
+	<p class="formButtons">
+		<input type="submit" name="submitmetaalbum" value="{'Save Settings'|@translate}">
+	</p>	
+  	</fieldset>
+    </form>
+</div>
 {/if}

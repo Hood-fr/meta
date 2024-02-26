@@ -70,3 +70,4 @@ $lang['Keywords of Additional Pages to be completed'] = 'Nøgleord til Additiona
 $lang['Keywords of contact page to be completed'] = 'Nøgleord til kontaktside, der skal udfyldes';
 $lang['Metadata updated'] = 'Metadata opdateret';
 $lang['Choose it page'] = 'Vælg side';
+$lang['Meta'] = 'Meta';

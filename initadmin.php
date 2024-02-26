@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2023 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -95,7 +95,7 @@ function metaPadminA() {
   }
 }
 
-//add prefiltre album
+/*//add prefiltre album
 add_event_handler('loc_begin_admin', 'metaAadminf');
 add_event_handler('loc_begin_admin_page', 'metaAadminA');
 
@@ -155,6 +155,6 @@ function metaAadminA(){
 		'metaCONTENTA2' => $_POST['insermetaDA'],
 	));
   }
-}
+}*/
 
 ?>

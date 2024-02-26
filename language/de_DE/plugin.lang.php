@@ -57,3 +57,4 @@ $lang['Keywords of contact page to be completed'] = 'Schlüsselwörter der Konta
 $lang['Add metadata for page'] = 'Meta Daten für diese Seite hinzufügen';
 $lang['Metadata updated'] = 'Metadaten aktualisiert';
 $lang['Choose it page'] = 'Auswahlseite';
+$lang['Meta'] = 'Metadaten';

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: meta
-Version: 12.0.a
+Version: 14.0.c
 Description: Allows to add metadata
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=220
 Author: ddtddt
@@ -12,7 +12,7 @@ Has Settings: webmaster
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2023 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -36,13 +36,11 @@ global $prefixeTable, $page;
 
 define('meta_DIR', basename(dirname(__FILE__)));
 define('meta_PATH', PHPWG_PLUGINS_PATH . meta_DIR . '/');
-define('meta_TABLE', $prefixeTable . 'meta');
-define('meta_img_TABLE', $prefixeTable . 'meta_img');
-define('meta_cat_TABLE', $prefixeTable . 'meta_cat');
-if (!defined('METAPERSO_TABLE'))
-  define('METAPERSO_TABLE', $prefixeTable . 'metaperso');
-if (!defined('META_AP_TABLE'))
-  define('META_AP_TABLE', $prefixeTable . 'meta_ap');
+if (!defined('meta_TABLE')) define('meta_TABLE', $prefixeTable . 'meta');
+if (!defined('meta_img_TABLE')) define('meta_img_TABLE', $prefixeTable . 'meta_img');
+if (!defined('meta_cat_TABLE')) define('meta_cat_TABLE', $prefixeTable . 'meta_cat');
+if (!defined('METAPERSO_TABLE')) define('METAPERSO_TABLE', $prefixeTable . 'metaperso');
+if (!defined('META_AP_TABLE')) define('META_AP_TABLE', $prefixeTable . 'meta_ap');
 define('META_ADMIN',get_root_url().'admin.php?page=plugin-'.meta_DIR);
 
 add_event_handler('loading_lang', 'meta_loading_lang');	  
@@ -83,7 +81,6 @@ function add_meta(){
   $meta_infos['related_tags'] = $template->get_template_vars('related_tags');
   $meta_infos['info'] = $template->get_template_vars('INFO_FILE');
   $meta_infos['title'] = $template->get_template_vars('PAGE_TITLE');
-//  echo '<pre>'; print_r($meta_infos); echo '</pre>';
 
   $query = 'SELECT id,metaname,metaval FROM ' . meta_TABLE . ' WHERE metaname IN (\'author\', \'keywords\', \'Description\', \'robots\');';
   $result = pwg_query($query);
@@ -112,6 +109,8 @@ function add_meta(){
     $template->assign('PLUG_META', $meta_infos['title'] . ' - ' . $metaED['Description']);
   } elseif (!empty($metaED['Description'])) {
     $template->assign('PLUG_META', $metaED['Description']);
+  } else {
+    $template->assign('PLUG_META', $meta_infos['title']);
   }
 
   // Robots
@@ -182,11 +181,11 @@ function add_metacat() {
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
 	if (!empty($row['metaKeycat'])) {
-	  $albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
+	$albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
 	  $template->append('related_tags', array('name' => $albumKeyED));
 	}
 	if (!empty($row['metadescat'])) {
-	  $albumDesED = trigger_change('AP_render_content', $row['metadescat']);
+	$albumDesED = trigger_change('AP_render_content', $row['metadescat']);
 	  $template->assign('PLUG_META', $albumDesED);
 	}
   }
@@ -199,7 +198,7 @@ function add_metaimg(){
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
 	if (!empty($row['metaKeyimg'])) {
-	  $photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
+ 	  $photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
 	  $template->append('related_tags', array('name' => $photoKeyED));
 	}
 	if (!empty($row['metadesimg'])) {
@@ -210,7 +209,7 @@ function add_metaimg(){
 	  $meta_infosph['title'] = $template->get_template_vars('PAGE_TITLE');
 	  $meta_infosph['gt'] = $template->get_template_vars('GALLERY_TITLE');
 	  $meta_infosph['st'] = $template->get_template_vars('SECTION_TITLE');
-          $meta_infosph['descimg'] = $template->get_template_vars('COMMENT_IMG');
+	  $meta_infosph['descimg'] = $template->get_template_vars('COMMENT_IMG');
 	  if (!empty($meta_infosph['descimg'])) {
 		$template->assign('PLUG_META', $meta_infosph['st'] .  ' - ' . strip_tags($meta_infosph['descimg']) . ' - ' . $meta_infosph['title']);
 	  }else{
@@ -229,6 +228,18 @@ function set_meta_back(){
       'INFO_FILE' => $meta_infos['info'],
     )
    );
+}
+
+//adminmenu
+add_event_handler('tabsheet_before_select', 'metaalbum_tabsheet_before_select', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+function metaalbum_tabsheet_before_select($sheets, $id){
+ if ($id == 'album'){
+	$sheets['metaalbum'] = array(
+     'caption' => '<span class="icon-file-code"></span>'.l10n('Meta'),
+     'url' => get_root_url().'admin.php?page=plugin-meta-album&amp;cat_id='.$_GET['cat_id'],
+    );
+  }
+  return $sheets;
 }
 
 ?>

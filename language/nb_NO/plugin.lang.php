@@ -49,3 +49,4 @@ $lang['Metadata updated'] = 'Filinformasjon oppdatert';
 $lang['Personal Metadata'] = 'Egen filinformasjon';
 $lang['Personal metadata update'] = 'Egen filinformasjon oppdatert';
 $lang['Choose it page'] = 'Velg den siden';
+$lang['Meta'] = 'Meta';

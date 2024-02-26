@@ -70,3 +70,4 @@ $lang['Choose Additional Pages'] = 'Ek Sayfalar Seç';
 $lang['Add metadata for page'] = 'Sayfa için metadata ekle';
 $lang['Metadata updated'] = 'Metadata güncellendi';
 $lang['Choose it page'] = 'Sayfa seçiniz';
+$lang['Meta'] = 'Meta';

@@ -45,7 +45,7 @@ index：允許機器人建立頁面索引<br>
 nofollow：禁止機器人跟​​踪頁面的鏈接<br>
 noindex：禁止機器人建立頁面索引<br>
 none：不允許機器人追踪網站指標<br>';
-none：不允許機器人追踪網站指標<br>';
+
 $lang['meta_select'] = '選擇想要編輯的一般詮釋資料';
 $lang['meta_select2'] = '選擇詮釋資料';
 $lang['Add Personal metadata'] = '新增自訂詮釋資料';

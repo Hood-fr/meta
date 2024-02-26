@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2023 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -27,7 +27,7 @@ class meta_maintain extends PluginMaintain
   {
  global $conf, $prefixeTable;
     $q = 'CREATE TABLE ' . $prefixeTable . 'meta(
-id SMALLINT( 5 ) UNSIGNED NOT NULL ,
+id MEDIUMINT(8) UNSIGNED NOT NULL ,
 metaname VARCHAR( 255 ) NOT NULL ,
 metaval lONGTEXT NOT NULL ,
 metatype VARCHAR( 255 ) NOT NULL ,
@@ -53,7 +53,7 @@ INSERT INTO ' . $prefixeTable . 'meta(id,metaname,metaval,metatype)VALUES (4,"ro
     if (!defined('meta_img_TABLE'))
         define('meta_img_TABLE', $prefixeTable . 'meta_img');
     $query = "CREATE TABLE IF NOT EXISTS " . meta_img_TABLE . " (
-id SMALLINT( 5 ) UNSIGNED NOT NULL ,
+id MEDIUMINT(8) UNSIGNED NOT NULL ,
 metaKeyimg VARCHAR( 255 ) NOT NULL ,
 metadesimg VARCHAR( 255 ) NOT NULL ,
 PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
@@ -62,7 +62,7 @@ PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
     if (!defined('meta_cat_TABLE'))
         define('meta_cat_TABLE', $prefixeTable . 'meta_cat');
     $query = "CREATE TABLE IF NOT EXISTS " . meta_cat_TABLE . " (
-id SMALLINT( 5 ) UNSIGNED NOT NULL ,
+id MEDIUMINT(8) UNSIGNED NOT NULL ,
 metaKeycat VARCHAR( 255 ) NOT NULL ,
 metadescat VARCHAR( 255 ) NOT NULL ,
 PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
@@ -103,8 +103,15 @@ PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
   function update($old_version, $new_version, &$errors=array())
   {
  global $prefixeTable, $template;
-	  define('METAPERSO_TABLE', $prefixeTable . 'metaperso');
+if (!defined('meta_img_TABLE')) define('meta_img_TABLE', $prefixeTable . 'meta_img');
+if (!defined('meta_cat_TABLE')) define('meta_cat_TABLE', $prefixeTable . 'meta_cat');
+$row = pwg_db_fetch_assoc(pwg_query('SHOW COLUMNS FROM `'.meta_img_TABLE.'` LIKE "id";'));
+if (!preg_match('/^mediumint/i', $row['Type'])){
+  $q = 'ALTER TABLE ' . meta_img_TABLE . ' CHANGE `id` `id` MEDIUMINT(8) UNSIGNED NOT NULL ';
+  pwg_query($q);
+}
 
+if (!defined('METAPERSO_TABLE'))define('METAPERSO_TABLE', $prefixeTable . 'metaperso');
     $query = "CREATE TABLE IF NOT EXISTS " . METAPERSO_TABLE . " (
 id SMALLINT( 5 ) UNSIGNED NOT NULL auto_increment,
 metaname VARCHAR( 255 ) NOT NULL ,
@@ -113,12 +120,11 @@ metatype VARCHAR( 255 ) NOT NULL ,
 PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
     $result = pwg_query($query);
 
-    if (!isset($conf['contactmeta'])) {
-        conf_update_param('contactmeta', ',');
-    }
+if (!isset($conf['contactmeta'])){
+  conf_update_param('contactmeta', ',');
+}
 
-    if (!defined('META_AP_TABLE'))
-        define('META_AP_TABLE', $prefixeTable . 'meta_ap');
+if (!defined('META_AP_TABLE')) define('META_AP_TABLE', $prefixeTable . 'meta_ap');
     $query = "CREATE TABLE IF NOT EXISTS " . META_AP_TABLE . " (
 id SMALLINT( 5 ) UNSIGNED NOT NULL ,
 metaKeyap VARCHAR( 255 ) NOT NULL ,
@@ -155,18 +161,15 @@ select param,value
         $majvalue1 = $row['value'];
 
         if (!$majvalue1 == 1) {
-            if (!defined('meta_img_TABLE'))
-                define('meta_img_TABLE', $prefixeTable . 'meta_img');
+
             $query = "CREATE TABLE IF NOT EXISTS " . meta_img_TABLE . " (
-id SMALLINT( 5 ) UNSIGNED NOT NULL ,
+id MEDIUMINT(8) UNSIGNED NOT NULL ,
 metaKeyimg VARCHAR( 255 ) NOT NULL ,
 PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
             $result = pwg_query($query);
 
-            if (!defined('meta_cat_TABLE'))
-                define('meta_cat_TABLE', $prefixeTable . 'meta_cat');
             $query = "CREATE TABLE IF NOT EXISTS " . meta_cat_TABLE . " (
-id SMALLINT( 5 ) UNSIGNED NOT NULL ,
+id MEDIUMINT(8) UNSIGNED NOT NULL ,
 metaKeycat VARCHAR( 255 ) NOT NULL ,
 PRIMARY KEY (id))DEFAULT CHARSET=utf8;";
             $result = pwg_query($query);
@@ -221,7 +224,9 @@ ALTER TABLE ' . meta_img_TABLE . ' ADD COLUMN metadesimg VARCHAR( 255 ) NOT NULL
 
         $majvalue2 == 1;
         $maj = 0;
-    }  }
+    } 
+	
+}
 
   function uninstall()
   {

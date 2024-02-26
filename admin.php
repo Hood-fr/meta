@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | meta plugin for Piwigo by TEMMII                                      |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2021 ddtddt               http://temmii.com/piwigo/ |
+// | Copyright(C) 2008-2023 ddtddt               http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -24,6 +24,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 global $template, $conf, $user, $pwg_loaded_plugins;
 include_once(PHPWG_ROOT_PATH . 'admin/include/tabsheet.class.php');
 
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -31,11 +32,68 @@ check_status(ACCESS_ADMINISTRATOR);
 
 //-------------------------------------------------------- sections definitions
 // TAB gest
+$page['tab'] = (isset($_GET['tab'])) ? $_GET['tab'] : 'permissions';
+if ('album' == $page['tab']){
+	check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
+	$cat_id = $_GET['cat_id'];
+	$page['tab'] = 'meta-album';
+	$admin_album_base_url = get_root_url().'admin.php?page=album-'.$cat_id;
+	$query = '
+     SELECT *
+	 FROM '.CATEGORIES_TABLE.'
+	 WHERE id = '.$cat_id.'
+	 ;';
+	$category = pwg_db_fetch_assoc(pwg_query($query));
+	if (!isset($category['id'])){
+	 die("unknown album");
+	}
+
+	$tabsheet = new tabsheet();
+	$tabsheet->set_id('album');
+	$tabsheet->select('meta-album');
+	$tabsheet->assign();
+    $template->assign(
+      'metagestalbum', array(
+      'A' => 'A'
+    ));
+ if (isset($_GET['cat_id'])) {
+	global $template, $prefixeTable, $pwg_loaded_plugins;
+	if (isset($pwg_loaded_plugins['ExtendedDescription'])){
+	  $template->assign('useED',1);
+	}else{
+	  $template->assign('useED',0);
+	}
+	$query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = ' . $_GET['cat_id'] . ';';
+	$result = pwg_query($query);
+	$row = pwg_db_fetch_assoc($result);
+	if(!isset($row['metaKeycat'])){$row['metaKeycat']="";};
+	if(!isset($row['metadescat'])){$row['metadescat']="";};
+	$template->assign(
+	  array(
+		'metaCONTENTA' => $row['metaKeycat'],
+		'metaCONTENTA2' => $row['metadescat'],
+	));
+  }
+  if (isset($_POST['submitmetaalbum'])){
+	$query = 'DELETE FROM ' . meta_cat_TABLE . ' WHERE id = ' . $_GET['cat_id'] . ';';
+	$result = pwg_query($query);
+	$q = 'INSERT INTO ' . $prefixeTable . 'meta_cat(id,metaKeycat,metadescat)VALUES (' . $_GET['cat_id'] . ',"' . $_POST['insermetaKA'] . '","' . $_POST['insermetaDA'] . '");';
+	pwg_query($q);
+	$template->assign(
+	  array(
+		'metaCONTENTA' => $_POST['insermetaKA'],
+		'metaCONTENTA2' => $_POST['insermetaDA'],
+	));
+	$page['infos'][] = l10n('Metadata updated');
+  }
+   
+}else{
 if (!isset($_GET['tab']))
     $page['tab'] = 'gestion';
 else
-    $page['tab'] = $_GET['tab'];
-$tabsheet = new tabsheet();
+  $page['tab'] = $_GET['tab'];
+  
+  $tabsheet = new tabsheet();
   $tabsheet->add('gestion', l10n('meta_onglet_gestion'), META_ADMIN . '-gestion');
   $tabsheet->add('persometa', l10n('Personal Metadata'), META_ADMIN . '-persometa');
   if (isset($pwg_loaded_plugins['ContactForm'])){
@@ -45,9 +103,9 @@ $tabsheet = new tabsheet();
 	$tabsheet->add('AdditionalPagesmeta', l10n('Additional Pages Metadata'), META_ADMIN . '-AdditionalPagesmeta');
   }
   $tabsheet->add('description', l10n('meta_onglet_description'), META_ADMIN . '-description');
-$tabsheet->select($page['tab']);
-$tabsheet->assign();
-
+  $tabsheet->select($page['tab']);
+  $tabsheet->assign();
+}
 switch ($page['tab']) {
   case 'gestion':
     $groups = array();
@@ -117,6 +175,9 @@ switch ($page['tab']) {
 	if (isset($_POST['submitaddpersonalmeta'])) {
 	  $template->assign(
 		'meta_edit2', array(
+		  'METANAME' =>'',
+		  'METAVAL' =>'',
+		  'METATYPE' =>'',
 		  'meta' => l10n('meta_name'),
 		  'METAID' => 0,
 	  ));

@@ -57,3 +57,4 @@ $lang['Choose Additional Pages'] = 'Zvoľte ďalšie stránky';
 $lang['Additional Pages Metadata'] = 'Ďalšie stránky metadát';
 $lang['Metadata updated'] = 'Metadata aktualizované';
 $lang['Choose it page'] = 'Vyberte si stranu';
+$lang['Meta'] = 'Meta';

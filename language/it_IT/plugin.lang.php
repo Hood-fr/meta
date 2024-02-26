@@ -41,3 +41,4 @@ $lang['Choose Additional Pages'] = 'Scegliere Pagine Aggiuntive';
 $lang['Add metadata for page'] = 'Aggiungi metadati per la pagina';
 $lang['Metadata updated'] = 'Metadati aggiornati';
 $lang['Choose it page'] = 'Scegli la pagina';
+$lang['Meta'] = 'Meta';
