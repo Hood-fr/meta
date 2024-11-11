@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: meta
-Version: 14.0.c
+Version: 14.0.d
 Description: Allows to add metadata
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=220
 Author: ddtddt
@@ -62,17 +62,17 @@ add_event_handler('loc_after_page_header', 'set_meta_back');
 
 function Change_Meta(){
   global $template, $pwg_loaded_plugins;
-//  $template->set_prefilter('header', 'upmata');
+  $template->set_prefilter('header', 'upmata');
   if (isset($pwg_loaded_plugins['ExtendedDescription'])){
     add_event_handler('AP_render_content', 'get_user_language_desc');
   }
 }
 
-//function upmata($content, &$smarty){
-//  $search = '#<meta name="description" content=".*?">#';
-//  $replacement = '<meta name="description" content="{$PLUG_META}">';
-//  return preg_replace($search, $replacement, $content);
-//}
+function upmata($content){
+  $search = '#<meta name="description" content=".*?">#';
+  $replacement = '<meta name="description" content="{$PLUG_META}">';
+  return preg_replace($search, $replacement, $content);
+}
 
 function add_meta(){
   global $template, $page, $meta_infos, $pwg_loaded_plugins;
@@ -158,8 +158,8 @@ function add_meta(){
       $query = 'SELECT id, metaKeyap, metadesap FROM ' . META_AP_TABLE . ' WHERE id = \'' . $lire . '\';';
 	  $result = pwg_query($query);
 	  $row = pwg_db_fetch_assoc($result);
-	  $metaKeyapap = $row['metaKeyap'];
-	  $metadesapap = $row['metadesap'];
+	  $metaKeyapap = $row['metaKeyap'] ?? null;
+	  $metadesapap = $row['metadesap'] ?? null;
 	  $metaKeyapapED = trigger_change('AP_render_content', $metaKeyapap);
 	  $metadesapED = trigger_change('AP_render_content', $metadesapap);
     }
@@ -208,12 +208,11 @@ function add_metaimg(){
 	  $meta_infosph = array();
 	  $meta_infosph['title'] = $template->get_template_vars('PAGE_TITLE');
 	  $meta_infosph['gt'] = $template->get_template_vars('GALLERY_TITLE');
-	  $meta_infosph['st'] = $template->get_template_vars('SECTION_TITLE');
 	  $meta_infosph['descimg'] = $template->get_template_vars('COMMENT_IMG');
 	  if (!empty($meta_infosph['descimg'])) {
-		$template->assign('PLUG_META', $meta_infosph['st'] .  ' - ' . strip_tags($meta_infosph['descimg']) . ' - ' . $meta_infosph['title']);
+		$template->assign('PLUG_META', strip_tags($meta_infosph['descimg']) . ' - ' . $meta_infosph['title']);
 	  }else{
-		$template->assign('PLUG_META', $meta_infosph['st'] .  ' - ' . $meta_infosph['title']);
+		$template->assign('PLUG_META', $meta_infosph['title'] . ' - ' . $meta_infosph['gt']);
 	  }
 	}
   }

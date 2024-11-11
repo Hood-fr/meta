@@ -57,4 +57,5 @@ $lang['Add metadata for page'] = 'Dodaje metadane do strony';
 $lang['Additional Pages Metadata'] = 'Metadane stron dodatkowych';
 $lang['Choose Additional Pages'] = 'Wybierz dodatkowe strony';
 $lang['Contact page Metadata'] = 'Metadane strony kontaktowej';
-?>
+$lang['Meta'] = 'Metadane';
+$lang['Choose it page'] = 'Strona wyboru';

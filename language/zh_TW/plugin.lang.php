@@ -68,3 +68,5 @@ $lang['meta_compimgdes'] = '這張照片的特定描述';
 $lang['meta_description'] = '描述';
 $lang['meta_desh3'] = '管理所有頁面的通用詮釋資料';
 $lang['meta_diff_val'] = '可能的數值';
+$lang['Choose it page'] = '選擇該頁面';
+$lang['Meta'] = 'Meta';

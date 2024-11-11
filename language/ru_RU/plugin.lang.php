@@ -62,3 +62,4 @@ $lang['Keywords of Additional Pages to be completed'] = 'Сюда впишите
 $lang['Keywords of contact page to be completed'] = 'Сюда впишите ключевые слова для страницы "Контакты" ';
 $lang['Metadata updated'] = 'Метаданные обновлены';
 $lang['Choose it page'] = 'Выбор этой страницы';
+$lang['Meta'] = 'Meta';
