@@ -44,8 +44,11 @@ function metaPadminf() {
 }
 
 function metaPadminfT($content){
-  $search = '#<input type="hidden" name="pwg_token"#';
-  $replacement = '
+	// <textarea name="comment" id="description" class="description">{$DESCRIPTION}</textarea>
+  $search = '<textarea name="comment" id="description" class="description">{$DESCRIPTION}</textarea>';
+
+  $replacement = $search.'
+  </p>
 	<p>
       <strong>{\'Metadata - Plugin meta\'|@translate}</strong>
       <br>
@@ -57,10 +60,9 @@ function metaPadminfT($content){
 	  <br>
 	  <span style="margin: 0 0 0 20px"><textarea rows="2" cols="60" {if $useED==1}placeholder="{\'Use Extended Description tags...\'|@translate}"{/if} name="insermetaDP" id="insermetaDP" class="insermetaDP">{$metaCONTENT2}</textarea>
 	  ({\'meta_compcatdeshelp\'|@translate})</span>
-	</p>  
-<input type="hidden" name="pwg_token"';
+';
 
-  return preg_replace($search, $replacement, $content);
+  return str_replace($search, $replacement, $content);
 }
 
 function metaPadminA() {

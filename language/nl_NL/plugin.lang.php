@@ -62,3 +62,4 @@ $lang['Choose Additional Pages'] = 'Kies de extra pagina\'s';
 $lang['Metadata updated'] = 'Metadata is vernieuwd';
 $lang['Contact page Metadata'] = 'Metadata van de contactpagina';
 $lang['Choose it page'] = 'Keuzepagina';
+$lang['Meta'] = 'Meta';

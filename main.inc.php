@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: meta
-Version: 14.0.d
+Version: 16.a
 Description: Allows to add metadata
-Plugin URI: http://piwigo.org/ext/extension_view.php?eid=220
+Plugin URI: https://piwigo.org/ext/extension_view.php?eid=220
 Author: ddtddt
 Author URI: http://temmii.com/piwigo/
 Has Settings: webmaster

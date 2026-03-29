@@ -67,3 +67,4 @@ $lang['Keywords of Additional Pages to be completed'] = '要完成的 Additional
 $lang['Keywords of contact page to be completed'] = '要完成的 Contact page "关键词"元';
 $lang['Metadata updated'] = '元数据已更新';
 $lang['Choose it page'] = '选择一个页面';
+$lang['Meta'] = '元';

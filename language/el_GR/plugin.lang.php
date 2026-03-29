@@ -71,3 +71,4 @@ $lang['Choose Additional Pages'] = 'Επιλέξτε πρόσθετες σελί
 $lang['Additional Pages Metadata'] = 'Μεταδεδομένα για Πρόσθετες Σελίδες ';
 $lang['Add metadata for page'] = 'Προσθήκη μεταδεδομένων για τη σελίδα';
 $lang['Choose it page'] = 'Σελίδα Επιλέξτε τη ';
+$lang['Meta'] = 'Μέτα';

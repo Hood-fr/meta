@@ -70,3 +70,4 @@ $lang['Choose Additional Pages'] = 'Избери допълнителни стр
 $lang['Additional Pages Metadata'] = 'Допълнителни метаданни за страницата';
 $lang['Add metadata for page'] = 'Добавяне на метаданни за страницата';
 $lang['Choose it page'] = 'Избраната страница';
+$lang['Meta'] = 'Meta2';
