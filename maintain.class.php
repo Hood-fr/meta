@@ -21,6 +21,7 @@
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
+#[AllowDynamicProperties]
 class meta_maintain extends PluginMaintain
 {
   function install($plugin_version, &$errors=array())

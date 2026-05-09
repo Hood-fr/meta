@@ -157,7 +157,7 @@ function add_meta(){
       $lire = $page['additional_page']['id'];
       $query = 'SELECT id, metaKeyap, metadesap FROM ' . META_AP_TABLE . ' WHERE id = \'' . $lire . '\';';
 	  $result = pwg_query($query);
-	  $row = pwg_db_fetch_assoc($result);
+	  $row = pwg_db_fetch_assoc($result) ?: [];
 	  $metaKeyapap = $row['metaKeyap'] ?? null;
 	  $metadesapap = $row['metadesap'] ?? null;
 	  $metaKeyapapED = trigger_change('AP_render_content', $metaKeyapap);
@@ -179,7 +179,7 @@ function add_metacat() {
   if (!empty($page['category']['id'])) {
     $query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = \'' . $page['category']['id'] . '\';';
 	$result = pwg_query($query);
-	$row = pwg_db_fetch_assoc($result);
+	$row = pwg_db_fetch_assoc($result) ?: [];
 	if (!empty($row['metaKeycat'])) {
 	$albumKeyED = trigger_change('AP_render_content', $row['metaKeycat']);
 	  $template->append('related_tags', array('name' => $albumKeyED));
@@ -196,7 +196,7 @@ function add_metaimg(){
   if (!empty($page['image_id'])) {
     $query = 'SELECT id,metaKeyimg,metadesimg FROM ' . meta_img_TABLE . ' WHERE id = \'' . $page['image_id'] . '\';';
 	$result = pwg_query($query);
-	$row = pwg_db_fetch_assoc($result);
+	$row = pwg_db_fetch_assoc($result) ?: [];
 	if (!empty($row['metaKeyimg'])) {
  	  $photoKeyED = trigger_change('AP_render_content', $row['metaKeyimg']);
 	  $template->append('related_tags', array('name' => $photoKeyED));
@@ -222,9 +222,9 @@ function set_meta_back(){
   global $template, $meta_infos;
   $template->assign(
     array(
-      'INFO_AUTHOR' => $meta_infos['author'],
-      'related_tags' => $meta_infos['related_tags'],
-      'INFO_FILE' => $meta_infos['info'],
+      'INFO_AUTHOR' => $meta_infos['author'] ?? null,
+      'related_tags' => $meta_infos['related_tags'] ?? null,
+      'INFO_FILE' => $meta_infos['info'] ?? null,
     )
    );
 }

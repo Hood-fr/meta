@@ -33,7 +33,7 @@ check_status(ACCESS_ADMINISTRATOR);
 //-------------------------------------------------------- sections definitions
 // TAB gest
 $page['tab'] = (isset($_GET['tab'])) ? $_GET['tab'] : 'permissions';
-if ('album' == $page['tab']){
+if ('album' == $page['tab'] && isset($_GET['cat_id'])){
 	check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 	$cat_id = $_GET['cat_id'];
 	$page['tab'] = 'meta-album';
@@ -66,12 +66,12 @@ if ('album' == $page['tab']){
 	$query = 'SELECT id,metaKeycat,metadescat FROM ' . meta_cat_TABLE . ' WHERE id = ' . $_GET['cat_id'] . ';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
-	if(!isset($row['metaKeycat'])){$row['metaKeycat']="";};
-	if(!isset($row['metadescat'])){$row['metadescat']="";};
+    $row['metaKeycat'] = $row['metaKeycat'] ?? "";
+	$row['metadescat'] = $row['metadescat'] ?? "";
 	$template->assign(
 	  array(
-		'metaCONTENTA' => $row['metaKeycat'],
-		'metaCONTENTA2' => $row['metadescat'],
+		'metaCONTENTA' => $row['metaKeycat'] ?? "",
+		'metaCONTENTA2' => $row['metadescat'] ?? "",
 	));
   }
   if (isset($_POST['submitmetaalbum'])){
@@ -81,8 +81,8 @@ if ('album' == $page['tab']){
 	pwg_query($q);
 	$template->assign(
 	  array(
-		'metaCONTENTA' => $_POST['insermetaKA'],
-		'metaCONTENTA2' => $_POST['insermetaDA'],
+		'metaCONTENTA' => $_POST['insermetaKA'] ?? "",
+		'metaCONTENTA2' => $_POST['insermetaDA'] ?? "",
 	));
 	$page['infos'][] = l10n('Metadata updated');
   }
@@ -130,11 +130,11 @@ switch ($page['tab']) {
       $lire = $_POST['metalist'];
       $query = 'SELECT id,metaname,metaval FROM ' . meta_TABLE . ' WHERE id = \'' . $lire . '\';';
       $result = pwg_query($query);
-      $row = pwg_db_fetch_assoc($result);
+      $row = pwg_db_fetch_assoc($result) ?: [];
       $template->assign(
 		'meta_edit', array(
-		'VALUE' => $row['metaname'],
-		'CONTENT' => $row['metaval'],
+		'VALUE' => $row['metaname'] ?? "",
+		'CONTENT' => $row['metaval'] ?? "",
 		'SELECTED' => ""
 	  ));
     }
@@ -163,11 +163,11 @@ switch ($page['tab']) {
     if (pwg_db_num_rows($metapersos)) {
 	  while ($metaperso = pwg_db_fetch_assoc($metapersos)){
 		$items = array(
-		  'METANAME' => $metaperso['metaname'],
-		  'METAVAL' => $metaperso['metaval'],
-		  'METATYPE' => $metaperso['metatype'],
-		  'U_DELETE' => $admin_base_url . '&amp;delete=' . $metaperso['id'],
-		  'U_EDIT' => $admin_base_url . '&amp;edit=' . $metaperso['id'],
+		  'METANAME' => $metaperso['metaname'] ?? "",
+		  'METAVAL' => $metaperso['metaval'] ?? "",
+		  'METATYPE' => $metaperso['metatype'] ?? "",
+		  'U_DELETE' => $admin_base_url . '&amp;delete=' . $metaperso['id'] ?? "",
+		  'U_EDIT' => $admin_base_url . '&amp;edit=' . $metaperso['id'] ?? "",
 		);
         $template->append('metapersos', $items);
       }
@@ -196,13 +196,13 @@ switch ($page['tab']) {
       check_input_parameter('edit', $_GET, false, PATTERN_ID);
 	  $query = 'SELECT id,metaname,metaval,metatype FROM ' . METAPERSO_TABLE . ' WHERE id = \'' . $_GET['edit'] . '\';';
 	  $result = pwg_query($query);
-      $row = pwg_db_fetch_assoc($result);
+      $row = pwg_db_fetch_assoc($result) ?: [];
 	  $template->assign(
 		'meta_edit2', array(
-		  'METAID' => $row['id'],
-		  'METANAME' => $row['metaname'],
-		  'METAVAL' => $row['metaval'],
-		  'METATYPE' => $row['metatype'],
+		  'METAID' => $row['id'] ?? "",
+		  'METANAME' => $row['metaname'] ?? "",
+		  'METAVAL' => $row['metaval'] ?? "",
+		  'METATYPE' => $row['metatype'] ?? "",
 	  ));
     }
 
@@ -254,14 +254,14 @@ switch ($page['tab']) {
 	  $lire = $_POST['APchoix'];
 	  $query = 'SELECT id,metaKeyap,metadesap FROM ' . META_AP_TABLE . ' WHERE id = \'' . $lire . '\';';
 	  $result = pwg_query($query);
-	  $row = pwg_db_fetch_assoc($result);
+	  $row = pwg_db_fetch_assoc($result) ?: [];
 	  $metaKeyapap = $row['metaKeyap'];
 	  $metadesap = $row['metadesap'];
 	  $query = 'SELECT id,title FROM ' . ADD_PAGES_TABLE . ' WHERE id = \'' . $lire . '\';';
 	  $result = pwg_query($query);
 	  $row = pwg_db_fetch_assoc($result);
-	  $idap = $row['id'];
-	  $nameap = $row['title'];
+	  $idap = $row['id'] ?? "";
+	  $nameap = $row['title'] ?? "";
 	  $template->assign(
 		'ap_edit', array(
 		  'VALUE' => $idap,
